@@ -2,7 +2,7 @@ name: Azure Powershell Deployment
 
 on:
   push:
-    brnaches:
+    branches:
       -main
 
 
@@ -25,4 +25,4 @@ jobs:
 
       - name: Run PowerShell Deployment Script
         run: |
-          pwsh -File ./automate01.ps1 -ResourcegroupName "MyResourceGroup" -Location "EastUS" -VmName "MyVM" -AdminUsername "adminuser" -AdminPassword "MySecureP@ss!"
+          pwsh -File ./automate01.ps1
