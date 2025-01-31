@@ -3,7 +3,7 @@ name: Azure PowerShell Deployment
 on:
   push:
     branches:
-      - mainn # Runs on every commit to the main branch
+      - main # Runs on every commit to the main branch
 
 jobs:
   deploy:
