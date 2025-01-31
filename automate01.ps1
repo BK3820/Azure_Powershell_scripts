@@ -1,6 +1,13 @@
-# Ensure authentication in Azure
+# Ensure authentication in Azure using GitHub Secrets
 Write-Host "Authenticating to Azure..."
-Connect-AzAccount -Identity
+$clientId = "${{ secrets.AZURE_CLIENT_ID }}"
+$clientSecret = "${{ secrets.AZURE_CLIENT_SECRET }}"
+$tenantId = "${{ secrets.AZURE_TENANT_ID }}"
+$subscriptionId = "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+
+Connect-AzAccount -ServicePrincipal -TenantId $tenantId -ApplicationId $clientId -CertificateThumbprint $clientSecret
+Set-AzContext -SubscriptionId $subscriptionId
+
 Write-Host "Azure authentication successful."
 
 # Define variables
