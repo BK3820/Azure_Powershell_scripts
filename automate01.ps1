@@ -1,12 +1,9 @@
-# Removed [CmdletBinding()]
-function Handle-Error {
-    param (
-        [string]$ErrorMessage
-    )
-    Write-Host "Error Message: $ErrorMessage" -ForegroundColor Red -BackgroundColor White
-}
+# Ensure authentication in Azure
+Write-Host "Authenticating to Azure..."
+Connect-AzAccount -Identity
+Write-Host "Azure authentication successful."
 
-# Define variables (Previously passed as parameters)
+# Define variables
 $ResourcegroupName = "MyResourceGroup"
 $Location = "EastUS"
 $VmName = "MyVM"
@@ -24,5 +21,5 @@ try {
         Write-Host "Resource group successfully created." -ForegroundColor Green
     }
 } catch {
-    Handle-Error $_.Exception.Message
+    Write-Host "Error Message: $_.Exception.Message" -ForegroundColor Red -BackgroundColor White
 }
