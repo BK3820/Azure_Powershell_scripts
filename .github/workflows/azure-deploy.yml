@@ -25,4 +25,4 @@ jobs:
 
       - name: Run PowerShell Deployment Script
         run: |
-          pwsh -File ./Azure_Powershell_scripts/automate01.ps1 -ResourcegroupName "MyResourceGroup" -Location "EastUS" -VmName "MyVM" -AdminUsername "adminuser" -AdminPassword "MySecureP@ss!"
+          pwsh -File ./automate01.ps1 -ResourcegroupName "MyResourceGroup" -Location "EastUS" -VmName "MyVM" -AdminUsername "adminuser" -AdminPassword "MySecureP@ss!"
