@@ -12,6 +12,11 @@ Connect-AzAccount -ServicePrincipal `
     -CertificateThumbprint $azureCredentials.clientSecret
 
 # Create the Resource Group
+
+Connect-AzAccount -Identity 
+
+Set-AzContext -SubscriptionId $azureCredentials.subscriptionId -TenantId $azureCredentials.tenantId
+
 New-AzResourceGroup -Name $resourceGroupName -Location $location
 
 Write-Output "Resource Group '$resourceGroupName' created successfully in '$location'."
