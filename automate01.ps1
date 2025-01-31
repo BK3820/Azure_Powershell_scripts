@@ -55,7 +55,7 @@ catch {
 $vnetName = "$VmName-VNet"
 $subnetName = "$vnetName-subnet"
 
-Write-Host "PROCESS --> Creating Vnet under the name '$vnetName' in resopurce group '$ResourcegroupName'" -ForegroundColor DarkYellow
+Write-Host "PROCESS --> Creating Vnet under the name '$vnetName' in resource group '$ResourcegroupName'" -ForegroundColor DarkYellow
 
 try {
 
