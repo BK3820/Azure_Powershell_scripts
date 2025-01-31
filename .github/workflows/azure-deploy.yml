@@ -1,13 +1,13 @@
-name: Create Azure Resource Group
+name: Execute PowerShell Script
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch: # Allows manual trigger
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  run-powershell:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,5 +24,4 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Run PowerShell script
-        run: |
-          pwsh -File ./automate01..ps1
+        run: pwsh -ExecutionPolicy Bypass -File ./automate01.ps1
