@@ -3,7 +3,7 @@ name: Azure Powershell Deployment
 on:
   push:
     branches:
-      -main
+      - main
 
 
 jobs:
