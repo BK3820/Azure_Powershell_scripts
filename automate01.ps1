@@ -15,7 +15,7 @@ $AdminUsername = "adminuser"
 $AdminPassword = "MySecureP@ss!"
 
 # RESOURCE GROUP CREATION
-Write-Host "PROCESS --> Creating Resource group under the name '$ResourcegroupName' in the location '$Location'" -ForegroundColor DarkYellow
+Write-Host "PROCESS --> Creating Resource group under the Name '$ResourcegroupName' in the location '$Location'" -ForegroundColor DarkYellow
 try {
     $Resourcegroup = Get-AzResourceGroup -Name $ResourcegroupName -ErrorAction SilentlyContinue
     if ($Resourcegroup) {
