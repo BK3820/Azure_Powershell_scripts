@@ -1,22 +1,27 @@
-# Define variables
-$resourceGroupName = "MyResourceGroup"
-$location = "EastUS"
+# Ensure Az module is installed
+if (-not (Get-Module -ListAvailable -Name Az)) {
+    Install-Module -Name Az -Scope CurrentUser -Force -AllowClobber
+}
 
-# Convert GitHub Secret JSON string into a PowerShell object
-$azureCredentials = ConvertFrom-Json -InputObject $env:AZURE_CREDENTIALS
+# Retrieve environment variables set by GitHub Secrets
+$clientId = $env:AZURE_CLIENT_ID
+$clientSecret = $env:AZURE_CLIENT_SECRET
+$subscriptionId = $env:AZURE_SUBSCRIPTION_ID
+$tenantId = $env:AZURE_TENANT_ID
 
-# Login to Azure using Service Principal
-Connect-AzAccount -ServicePrincipal `
-    -TenantId $azureCredentials.tenantId `
-    -ApplicationId $azureCredentials.clientId `
-    -CertificateThumbprint $azureCredentials.clientSecret
+# Convert client secret to a secure string
+$securePassword = ConvertTo-SecureString $clientSecret -AsPlainText -Force
+$credential = New-Object System.Management.Automation.PSCredential ($clientId, $securePassword)
 
-# Create the Resource Group
+# Authenticate with Azure using Service Principal
+Connect-AzAccount -ServicePrincipal -Credential $credential -TenantId $tenantId -SubscriptionId $subscriptionId
 
-Connect-AzAccount -Identity 
+# Define Resource Group name and location
+$resourceGroupName = "TestResourceGroup"
+$location = "East US"
 
-Set-AzContext -SubscriptionId $azureCredentials.subscriptionId -TenantId $azureCredentials.tenantId
-
+# Create Resource Group
 New-AzResourceGroup -Name $resourceGroupName -Location $location
 
+# Output confirmation message
 Write-Output "Resource Group '$resourceGroupName' created successfully in '$location'."
