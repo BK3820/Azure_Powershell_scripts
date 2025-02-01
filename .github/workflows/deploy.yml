@@ -3,7 +3,7 @@ name: Deploy Azure Resources
 on:
   push:
     branches:
-      - main  # Runs when code is pushed to main branch
+      - mmain  # Runs when code is pushed to main branch
 
 jobs:
   deploy:
