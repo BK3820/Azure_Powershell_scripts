@@ -23,26 +23,21 @@ Param(
     [string]$Location,
 
     [Parameter(Mandatory = $true)]
-    [Int32]$Vmcount,  
+    [Int32]$Vmcount,
 
     [Parameter(Mandatory = $true)]
     [string]$adminUser,
 
     [Parameter(Mandatory = $true)]
-    [securestring]$adminPassword
+    [string]$adminPassword  # Accepting as plain string
 )
 
-function HandleError {
-    param (
-        [string]$ErrorMessage
-    )
-
-    Write-Host "Error Message: $ErrorMessage" -ForegroundColor Red
-}
+# Convert password inside script
+$securePassword = ConvertTo-SecureString $adminPassword -AsPlainText -Force
 
 Write-Host "Initiating Resource Group Creation"
+
 try {
-    # Check if Resource Group exists
     $RG = Get-AzResourceGroup -Name $ResourceGroup -ErrorAction SilentlyContinue
 
     if ($RG) {
@@ -54,55 +49,23 @@ try {
     }
 }
 catch {
-    HandleError $_.Exception.Message
-    exit 1  # Stop execution if RG creation fails
+    Write-Host "Error: $_" -ForegroundColor Red
+    exit 1
 }
 
-Write-Host "Initiating VM Creation: Expecting $Vmcount VMs"
+Write-Host "Creating $Vmcount VMs"
 
 try {
-    $i = 1  # Initialize counter
-    while ($i -le $Vmcount) {
+    for ($i = 1; $i -le $Vmcount; $i++) {
         $vmName = "vm0-$i"
+        $cred = New-Object System.Management.Automation.PSCredential ($adminUser, $securePassword)
 
-        # Ensure credentials are passed correctly
-        $cred = New-Object System.Management.Automation.PSCredential ($adminUser, $adminPassword)
-
-        # Create VM
         New-AzVM -ResourceGroupName $ResourceGroup -Name $vmName -Location $Location -Credential $cred -Image "Ubuntu2204"
-
-        # Wait and Check VM Status
-        try {
-            Start-Sleep -Seconds 60
-
-            $vmStatus = (Get-AzVM -ResourceGroupName $ResourceGroup -Name $vmName -Status).Statuses[1].Code
-
-            if ($vmStatus -eq "PowerState/running") {
-                Write-Host "$vmName is created and running..." -ForegroundColor Green
-            }
-            else {
-                Write-Host "$vmName is created but not starting... waiting another 25 seconds"
-                Start-Sleep -Seconds 25
-
-                $vmStatus = (Get-AzVM -ResourceGroupName $ResourceGroup -Name $vmName -Status).Statuses[1].Code
-
-                if ($vmStatus -eq "PowerState/running") {
-                    Write-Host "$vmName is now running..." -ForegroundColor Green
-                }
-                else {
-                    Write-Host "$vmName did not start, exiting..." -ForegroundColor Red
-                    exit
-                }
-            }
-        }
-        catch {
-            HandleError $_.Exception.Message
-        }
-
-        $i++
+        Write-Host "VM $vmName created successfully." -ForegroundColor Green
     }
 }
 catch {
-    HandleError $_.Exception.Message
+    Write-Host "Error: $_" -ForegroundColor Red
+    exit 1
 }
 
