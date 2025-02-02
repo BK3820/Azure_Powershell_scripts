@@ -1,0 +1,82 @@
+azureuser@linuxVM:~/Azure_Powershell_scripts$ vim script.ps1
+azureuser@linuxVM:~/Azure_Powershell_scripts$ ls
+README.md  script.ps1
+azureuser@linuxVM:~/Azure_Powershell_scripts$ mkdir .github/workflows/deploy.yml
+mkdir: cannot create directory ‘.github/workflows/deploy.yml’: No such file or directory
+azureuser@linuxVM:~/Azure_Powershell_scripts$ mkdir .github/workflows/
+mkdir: cannot create directory ‘.github/workflows/’: No such file or directory
+azureuser@linuxVM:~/Azure_Powershell_scripts$ mkdir .github/workflows
+mkdir: cannot create directory ‘.github/workflows’: No such file or directory
+azureuser@linuxVM:~/Azure_Powershell_scripts$ mkdir .github
+azureuser@linuxVM:~/Azure_Powershell_scripts$ cd .github
+azureuser@linuxVM:~/Azure_Powershell_scripts/.github$ mkdir workflows
+azureuser@linuxVM:~/Azure_Powershell_scripts/.github$ cd workflows
+azureuser@linuxVM:~/Azure_Powershell_scripts/.github/workflows$ touch deploy.yml
+azureuser@linuxVM:~/Azure_Powershell_scripts/.github/workflows$ ls
+deploy.yml
+azureuser@linuxVM:~/Azure_Powershell_scripts/.github/workflows$ vim deploy.yml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+name: Deploy Azure Resources with PowerShell
+
+on:
+  push:
+    branches:
+      - main  # Runs when you push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true  # Enables Azure PowerShell session
+
+      - name: Run PowerShell script to create Resource Group
+        shell: pwsh
+        run: ./vm.ps1 -ResourceGroup "MyRG" -Location "EastUS" -Vmcount 3 -adminUser "adminuser" -adminPassword (ConvertTo-SecureString "MyPassword123!" -AsPlainText -Force)
+        env:
+          AZURE_CLIENT_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
+          AZURE_CLIENT_SECRET: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
+          AZURE_SUBSCRIPTION_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).subscriptionId }}
+          AZURE_TENANT_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).tenantId }}
+~                                                                                                                                                
+~                                                                                                                                                
+~                                                                                                                                                
+~                                                                                                                                                
+~                                                                                                                                                
+~                                                                                                                                                
+~                                                                                                                                                
+~                                                                                                                                                
+~                                                                                                                                                
+~                                                                                                                                                
+                                                                                                                               25,12         All
+
