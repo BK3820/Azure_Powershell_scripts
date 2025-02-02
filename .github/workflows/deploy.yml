@@ -21,7 +21,7 @@ jobs:
 
       - name: Run PowerShell script to create Resource Group
         shell: pwsh
-        run: ./vm.ps1 -ResourceGroup "MyRG" -Location "EastUS" -Vmcount 3 -adminUser "adminuser" -adminPassword (ConvertTo-SecureString "MyPassword123!" -AsPlainText -Force)
+        run: ./script.ps1 -ResourceGroup "MyRG" -Location "EastUS" -Vmcount 3 -adminUser "adminuser" -adminPassword (ConvertTo-SecureString "MyPassword123!" -AsPlainText -Force)
         env:
           AZURE_CLIENT_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
           AZURE_CLIENT_SECRET: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
