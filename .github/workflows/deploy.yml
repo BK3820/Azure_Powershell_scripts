@@ -21,4 +21,5 @@ jobs:
       - name: Run PowerShell script to create Resource Group & VMs
         shell: pwsh
         run: |
-          ./script.ps1 -ResourceGroup "MyRG" -Location "EastUS" -Vmcount 3 -adminUser "adminuser" -adminPassword ${{ secrets.ADMIN_PASSWORD }}
+          $securePassword = ConvertTo-SecureString "MySecureP@ssword123" -AsPlainText -Force
+          ./script.ps1 -ResourceGroup "MyRG" -Location "EastUS" -Vmcount 3 -adminUser "adminuser" -adminPassword $securePassword
