@@ -3,7 +3,7 @@ name: Deploy Azure Resources with PowerShell
 on:
   push:
     branches:
-      - main  # Runs when you push to the main branch
+      - main  # Runs when code is pushed to main
 
 jobs:
   deploy:
@@ -17,15 +17,8 @@ jobs:
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          enable-AzPSSession: true  # Enables Azure PowerShell session
 
-      - name: Run PowerShell script to create Resource Group
+      - name: Run PowerShell script to create Resource Group & VMs
         shell: pwsh
-        run: ./script.ps1 -ResourceGroup "MyRG" -Location "EastUS" -Vmcount 3 -adminUser "adminuser" -adminPassword (ConvertTo-SecureString "MyPassword123!" -AsPlainText -Force)
-        env:
-          AZURE_CLIENT_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
-          AZURE_CLIENT_SECRET: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
-          AZURE_SUBSCRIPTION_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).subscriptionId }}
-          AZURE_TENANT_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).tenantId }}
-                                                                                                                             25,12         All
-
+        run: |
+          ./script.ps1 -ResourceGroup "MyRG" -Location "EastUS" -Vmcount 3 -adminUser "adminuser" -adminPassword ${{ secrets.ADMIN_PASSWORD }}
