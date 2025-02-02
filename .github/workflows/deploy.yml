@@ -3,7 +3,7 @@ name: Deploy Azure Resources with PowerShell
 on:
   push:
     branches:
-      - main  # Runs when code is pushed to main
+      - mainn  # Runs when code is pushed to main
 
 jobs:
   deploy:
@@ -21,5 +21,4 @@ jobs:
       - name: Run PowerShell script to create Resource Group & VMs
         shell: pwsh
         run: |
-          $securePassword = ConvertTo-SecureString "MySecureP@ssword123" -AsPlainText -Force
-          ./script.ps1 -ResourceGroup "MyRG" -Location "EastUS" -Vmcount 3 -adminUser "adminuser" -adminPassword $securePassword
+          ./script.ps1 -ResourceGroup "MyRG" -Location "EastUS" -Vmcount 3 -adminUser "adminuser" -adminPassword "MySecureP@ssword123"
