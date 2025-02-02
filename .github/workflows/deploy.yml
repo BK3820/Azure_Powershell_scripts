@@ -3,7 +3,7 @@ name: Deploy Azure Resources with PowerShell
 on:
   push:
     branches:
-      - mainn  # Runs when code is pushed to main
+      - main  # Runs when code is pushed to main
 
 jobs:
   deploy:
