@@ -1,44 +1,3 @@
-azureuser@linuxVM:~/Azure_Powershell_scripts$ vim script.ps1
-azureuser@linuxVM:~/Azure_Powershell_scripts$ ls
-README.md  script.ps1
-azureuser@linuxVM:~/Azure_Powershell_scripts$ mkdir .github/workflows/deploy.yml
-mkdir: cannot create directory ‘.github/workflows/deploy.yml’: No such file or directory
-azureuser@linuxVM:~/Azure_Powershell_scripts$ mkdir .github/workflows/
-mkdir: cannot create directory ‘.github/workflows/’: No such file or directory
-azureuser@linuxVM:~/Azure_Powershell_scripts$ mkdir .github/workflows
-mkdir: cannot create directory ‘.github/workflows’: No such file or directory
-azureuser@linuxVM:~/Azure_Powershell_scripts$ mkdir .github
-azureuser@linuxVM:~/Azure_Powershell_scripts$ cd .github
-azureuser@linuxVM:~/Azure_Powershell_scripts/.github$ mkdir workflows
-azureuser@linuxVM:~/Azure_Powershell_scripts/.github$ cd workflows
-azureuser@linuxVM:~/Azure_Powershell_scripts/.github/workflows$ touch deploy.yml
-azureuser@linuxVM:~/Azure_Powershell_scripts/.github/workflows$ ls
-deploy.yml
-azureuser@linuxVM:~/Azure_Powershell_scripts/.github/workflows$ vim deploy.yml
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 name: Deploy Azure Resources with PowerShell
 
 on:
@@ -68,15 +27,5 @@ jobs:
           AZURE_CLIENT_SECRET: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
           AZURE_SUBSCRIPTION_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).subscriptionId }}
           AZURE_TENANT_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).tenantId }}
-~                                                                                                                                                
-~                                                                                                                                                
-~                                                                                                                                                
-~                                                                                                                                                
-~                                                                                                                                                
-~                                                                                                                                                
-~                                                                                                                                                
-~                                                                                                                                                
-~                                                                                                                                                
-~                                                                                                                                                
-                                                                                                                               25,12         All
+                                                                                                                             25,12         All
 
